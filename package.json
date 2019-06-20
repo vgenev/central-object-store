@@ -1,5 +1,5 @@
 {
-    "name": "central-object-store",
+    "name": "@mojaloop/central-object-store",
     "version": "6.4.0-snapshot",
     "description": "Mojaloop library for common object store",
     "license": "Apache-2.0",
