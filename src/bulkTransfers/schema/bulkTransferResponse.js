@@ -23,6 +23,7 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * Georgi Georgiev <georgi.georgiev@modusbox.com>
+ * Miguel de Barros <miguel.debarros@modusbox.com>
  --------------
  ******/
 'use strict'
@@ -35,7 +36,7 @@ const IndividualTransferResultModelFactory = require('../models/individualTransf
 let BulkTransferResponseSchema = null
 
 const getBulkTransferResponseSchema = () => {
-  if (!BulkTransferResponseSchema){
+  if (!BulkTransferResponseSchema) {
     let IndividualTransferResultModel = IndividualTransferResultModelFactory.getIndividualTransferResultModel()
     BulkTransferResponseSchema = new mongoose.Schema({
       messageId: { type: String, required: true },
