@@ -29,12 +29,19 @@
  ******/
 'use strict'
 
+const mongoose = require('../../lib/mongodb').Mongoose
+
+const BulkTransferResultSchema = require('../schema/bulkTransferResult')
+
+let BulkTransferResultModel = null
+
+const getBulkTransferResultModel = () => {
+  if (!BulkTransferResultModel) {
+    BulkTransferResultModel = mongoose.model('bulkTransferResults', BulkTransferResultSchema.getBulkTransferResultSchema(), 'bulkTransferResults')
+  }
+  return BulkTransferResultModel
+}
+
 module.exports = {
-  getBulkTransferModel: require('./bulkTransfer').getBulkTransferModel,
-  getBulkTransferFulfilModel: require('./bulkTransferFulfil').getBulkTransferFulfilModel,
-  getBulkTransferResultModel: require('./bulkTransferResult').getBulkTransferResultModel,
-  getIndividualTransferModel: require('./individualTransfer').getIndividualTransferModel,
-  getIndividualTransferFulfilModel: require('./individualTransferFulfil').getIndividualTransferFulfilModel,
-  getIndividualTransferResultModel: require('./individualTransferResult').getIndividualTransferResultModel,
-  getBulkTransferResultByMessageIdDestination: require('./facade').getBulkTransferResultByMessageIdDestination
+  getBulkTransferResultModel
 }

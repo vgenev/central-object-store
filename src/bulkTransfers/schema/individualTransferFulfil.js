@@ -23,18 +23,47 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * Georgi Georgiev <georgi.georgiev@modusbox.com>
- * Miguel de Barros <miguel.debarros@modusbox.com>
- * Valentin Genev <valentin.genev@modusbox.com>
  --------------
  ******/
 'use strict'
 
+const mongoose = require('../../lib/mongodb').Mongoose
+
+const TransferFulfil = {
+  transferId: {
+    type: String, required: true
+  },
+  fulfilment: {
+    type: String
+  },
+  errorInformation: {
+    errorCode: String,
+    errorDescription: String
+  },
+  extensionList: {
+    extension: [{
+      _id: false,
+      key: String,
+      value: String
+    }]
+  }
+}
+
+let IndividualTransferFulfilSchema = null
+
+const getIndividualTransferFulfilSchema = () => {
+  if (!IndividualTransferFulfilSchema) {
+    IndividualTransferFulfilSchema = new mongoose.Schema(Object.assign({}, { payload: TransferFulfil },
+      { _id_bulkTransferFulfils: { type: mongoose.Schema.Types.ObjectId, ref: 'bulkTransferFulfils' },
+        messageId: { type: String, required: true, index: true },
+        bulkTransferId: { type: String, required: true },
+        payload: { type: Object, required: true }
+      }))
+  }
+  return IndividualTransferFulfilSchema
+}
+
 module.exports = {
-  getBulkTransferModel: require('./bulkTransfer').getBulkTransferModel,
-  getBulkTransferFulfilModel: require('./bulkTransferFulfil').getBulkTransferFulfilModel,
-  getBulkTransferResultModel: require('./bulkTransferResult').getBulkTransferResultModel,
-  getIndividualTransferModel: require('./individualTransfer').getIndividualTransferModel,
-  getIndividualTransferFulfilModel: require('./individualTransferFulfil').getIndividualTransferFulfilModel,
-  getIndividualTransferResultModel: require('./individualTransferResult').getIndividualTransferResultModel,
-  getBulkTransferResultByMessageIdDestination: require('./facade').getBulkTransferResultByMessageIdDestination
+  TransferFulfil,
+  getIndividualTransferFulfilSchema
 }

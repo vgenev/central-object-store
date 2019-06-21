@@ -23,25 +23,23 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * Georgi Georgiev <georgi.georgiev@modusbox.com>
- * Miguel de Barros <miguel.debarros@modusbox.com>
- * Valentin Genev <valentin.genev@modusbox.com>
  --------------
  ******/
 'use strict'
 
 const mongoose = require('../../lib/mongodb').Mongoose
 
-const BulkTransferResponseSchema = require('../schema/bulkTransferResponse')
+const BulkTransferFulfilSchema = require('../schema/bulkTransferFulfil')
 
-let BulkTransferResponseModel = null
+let BulkTransferFulfilModel = null
 
-const getBulkTransferResponseModel = () => {
-  if (!BulkTransferResponseModel) {
-    BulkTransferResponseModel = mongoose.model('bulkTransferResponses', BulkTransferResponseSchema.getBulkTransferResponseSchema(), 'bulkTransferResponses')
+const getBulkTransferFulfilModel = () => {
+  if (!BulkTransferFulfilModel) {
+    BulkTransferFulfilModel = mongoose.model('bulkTransferFulfils', BulkTransferFulfilSchema.getBulkTransferFulfilSchema(), 'bulkTransferFulfils')
   }
-  return BulkTransferResponseModel
+  return BulkTransferFulfilModel
 }
 
 module.exports = {
-  getBulkTransferResponseModel
+  getBulkTransferFulfilModel
 }

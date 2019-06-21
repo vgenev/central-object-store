@@ -23,18 +23,23 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * Georgi Georgiev <georgi.georgiev@modusbox.com>
- * Miguel de Barros <miguel.debarros@modusbox.com>
- * Valentin Genev <valentin.genev@modusbox.com>
  --------------
  ******/
 'use strict'
 
+const mongoose = require('../../lib/mongodb').Mongoose
+
+const IndividualTransferFulfilSchema = require('../schema/individualTransferFulfil')
+
+let IndividualTransferFulfilModel = null
+
+const getIndividualTransferFulfilModel = () => {
+  if (!IndividualTransferFulfilModel) {
+    IndividualTransferFulfilModel = mongoose.model('individualTransferFulfils', IndividualTransferFulfilSchema.getIndividualTransferFulfilSchema(), 'individualTransferFulfils')
+  }
+  return IndividualTransferFulfilModel
+}
+
 module.exports = {
-  getBulkTransferModel: require('./bulkTransfer').getBulkTransferModel,
-  getBulkTransferFulfilModel: require('./bulkTransferFulfil').getBulkTransferFulfilModel,
-  getBulkTransferResultModel: require('./bulkTransferResult').getBulkTransferResultModel,
-  getIndividualTransferModel: require('./individualTransfer').getIndividualTransferModel,
-  getIndividualTransferFulfilModel: require('./individualTransferFulfil').getIndividualTransferFulfilModel,
-  getIndividualTransferResultModel: require('./individualTransferResult').getIndividualTransferResultModel,
-  getBulkTransferResultByMessageIdDestination: require('./facade').getBulkTransferResultByMessageIdDestination
+  getIndividualTransferFulfilModel
 }

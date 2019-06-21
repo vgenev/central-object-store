@@ -31,11 +31,14 @@
 
 module.exports = {
   getBulkTransferSchema: require('./bulkTransfer').getBulkTransferSchema,
-  getBulkTransferResponseSchema: require('./bulkTransferResponse').getBulkTransferResponseSchema,
+  getBulkTransferFulfilSchema: require('./bulkTransferFulfil').getBulkTransferFulfilSchema,
+  getBulkTransferResultSchema: require('./bulkTransferResult').getBulkTransferResultSchema,
   getIndividualTransferSchema: require('./individualTransfer').getIndividualTransferSchema,
+  getIndividualTransferFulfilSchema: require('./individualTransferFulfil').getIndividualTransferFulfilSchema,
   getIndividualTransferResultSchema: require('./individualTransferResult').getIndividualTransferResultSchema,
   definitions: {
     Transfer: require('./individualTransfer').Transfer,
+    TransferFulfil: require('./individualTransferFulfil').TransferFulfil,
     TransferResult: require('./individualTransferResult').TransferResult
   }
 }
