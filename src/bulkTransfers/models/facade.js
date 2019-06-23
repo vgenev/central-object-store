@@ -29,6 +29,12 @@ const BulkTransferResultModelFactory = require('./bulkTransferResult')
 const getBulkTransferResultByMessageIdDestination = async (messageId, destination) => {
   let BulkTransferResultModel = BulkTransferResultModelFactory.getBulkTransferResultModel()
   let message = await BulkTransferResultModel.findOne({ messageId, destination })
+  message.individualTransferResults = message.individualTransferResults.map(tr => {
+    if (!tr._doc.extensionList.extension.length) {
+      delete tr._doc.extensionList
+    }
+    return tr
+  })
   return message.toJSON()
 }
 

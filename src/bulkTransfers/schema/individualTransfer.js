@@ -72,6 +72,15 @@ const getIndividualTransferSchema = () => {
         payload: { type: Object, required: true }
       }))
   }
+  IndividualTransferSchema.pre('save', function () {
+    try {
+      if (!this.payload.extensionList.extension.length) {
+        delete this._doc.payload.extensionList
+      }
+    } catch (e) {
+      throw (e)
+    }
+  })
   return IndividualTransferSchema
 }
 
