@@ -23,25 +23,23 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * Georgi Georgiev <georgi.georgiev@modusbox.com>
- * Miguel de Barros <miguel.debarros@modusbox.com>
- * Valentin Genev <valentin.genev@modusbox.com>
  --------------
  ******/
 'use strict'
 
 const mongoose = require('../../lib/mongodb').Mongoose
 
-const IndividualTransferResultSchema = require('../schema/individualTransferResult')
+const IndividualTransferFulfilSchema = require('../schema/individualTransferFulfil')
 
-let IndividualTransferResultModel = null
+let IndividualTransferFulfilModel = null
 
-const getIndividualTransferResultModel = () => {
-  if (!IndividualTransferResultModel) {
-    IndividualTransferResultModel = mongoose.model('individualTransferResults', IndividualTransferResultSchema.getIndividualTransferResultSchema(), 'individualTransferResults')
+const getIndividualTransferFulfilModel = () => {
+  if (!IndividualTransferFulfilModel) {
+    IndividualTransferFulfilModel = mongoose.model('individualTransferFulfils', IndividualTransferFulfilSchema.getIndividualTransferFulfilSchema(), 'individualTransferFulfils')
   }
-  return IndividualTransferResultModel
+  return IndividualTransferFulfilModel
 }
 
 module.exports = {
-  getIndividualTransferResultModel
+  getIndividualTransferFulfilModel
 }

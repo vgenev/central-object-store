@@ -19,18 +19,19 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * Georgi Georgiev <georgi.georgiev@modusbox.com>
+ * Miguel de Barros <miguel.debarros@modusbox.com>
  --------------
  ******/
 'use strict'
 
-const BulkTransferResponseModelFactory = require('./bulkTransferResponse')
+const BulkTransferResultModelFactory = require('./bulkTransferResult')
 
-const getBulkTransferResponseByMessageIdDestination = async (messageId, destination) => {
-  let BulkTransferResponseModel = BulkTransferResponseModelFactory.getBulkTransferResponseModel()
-  let message = await BulkTransferResponseModel.findOne({ messageId, destination })
+const getBulkTransferResultByMessageIdDestination = async (messageId, destination) => {
+  let BulkTransferResultModel = BulkTransferResultModelFactory.getBulkTransferResultModel()
+  let message = await BulkTransferResultModel.findOne({ messageId, destination })
   return message.toJSON()
 }
 
 module.exports = {
-  getBulkTransferResponseByMessageIdDestination
+  getBulkTransferResultByMessageIdDestination
 }

@@ -23,21 +23,22 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * Georgi Georgiev <georgi.georgiev@modusbox.com>
+ * Miguel de Barros <miguel.debarros@modusbox.com>
  --------------
  ******/
 'use strict'
 
 const mongoose = require('../../lib/mongodb').Mongoose
 
-const TransferResult = require('../schema/individualTransferResult').TransferResult
+const TransferResult = require('./individualTransferResult').TransferResult
 const IndividualTransferResultModelFactory = require('../models/individualTransferResult')
 
-let BulkTransferResponseSchema = null
+let BulkTransferResultSchema = null
 
-const getBulkTransferResponseSchema = () => {
-  if (!BulkTransferResponseSchema){
+const getBulkTransferResultSchema = () => {
+  if (!BulkTransferResultSchema) {
     let IndividualTransferResultModel = IndividualTransferResultModelFactory.getIndividualTransferResultModel()
-    BulkTransferResponseSchema = new mongoose.Schema({
+    BulkTransferResultSchema = new mongoose.Schema({
       messageId: { type: String, required: true },
       destination: { type: String, required: true },
       headers: {
@@ -63,13 +64,13 @@ const getBulkTransferResponseSchema = () => {
         }]
       }
     })
-    BulkTransferResponseSchema.index({ messageId: 1, destination: 1 }, { unique: true })
-    BulkTransferResponseSchema.pre('save', function () {
+    BulkTransferResultSchema.index({ messageId: 1, destination: 1 }, { unique: true })
+    BulkTransferResultSchema.pre('save', function () {
       try {
         this.individualTransferResults.forEach(async transfer => {
           try {
             let individualTransferResult = new IndividualTransferResultModel({
-              _id_bulkTransferResponses: this._id,
+              _id_bulkTransferResults: this._id,
               messageId: this.messageId,
               destination: this.destination,
               bulkTransferId: this.bulkTransferId,
@@ -85,9 +86,9 @@ const getBulkTransferResponseSchema = () => {
       }
     })
   }
-  return BulkTransferResponseSchema
+  return BulkTransferResultSchema
 }
 
 module.exports = {
-  getBulkTransferResponseSchema
+  getBulkTransferResultSchema
 }

@@ -23,6 +23,7 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * Georgi Georgiev <georgi.georgiev@modusbox.com>
+ * Miguel de Barros <miguel.debarros@modusbox.com>
  --------------
  ******/
 'use strict'
@@ -49,26 +50,12 @@ const TransferResult = {
   }
 }
 
-// const IndividualTransferResultSchema = new mongoose.Schema(Object.assign({}, { payload: TransferResult },
-//   { _id_bulkTransferResponses: { type: mongoose.Schema.Types.ObjectId, ref: 'bulkTransferResponses' },
-//     messageId: { type: String, required: true },
-//     destination: { type: String, required: true },
-//     bulkTransferId: { type: String, required: true },
-//     payload: { type: Object, required: true }
-//   }))
-// IndividualTransferResultSchema.index({ messageId: 1, destination: 1 })
-//
-// module.exports = {
-//   IndividualTransferResultSchema,
-//   TransferResult
-// }
-
 let IndividualTransferResultSchema = null
 
 const getIndividualTransferResultSchema = () => {
-  if (!IndividualTransferResultSchema){
+  if (!IndividualTransferResultSchema) {
     IndividualTransferResultSchema = new mongoose.Schema(Object.assign({}, { payload: TransferResult },
-      { _id_bulkTransferResponses: { type: mongoose.Schema.Types.ObjectId, ref: 'bulkTransferResponses' },
+      { _id_bulkTransferResults: { type: mongoose.Schema.Types.ObjectId, ref: 'bulkTransferResults' },
         messageId: { type: String, required: true },
         destination: { type: String, required: true },
         bulkTransferId: { type: String, required: true },

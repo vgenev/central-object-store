@@ -23,6 +23,7 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * Georgi Georgiev <georgi.georgiev@modusbox.com>
+ * Miguel de Barros <miguel.debarros@modusbox.com>
  * Valentin Genev <valentin.genev@modusbox.com>
  --------------
  ******/
@@ -30,8 +31,10 @@
 
 module.exports = {
   getBulkTransferModel: require('./bulkTransfer').getBulkTransferModel,
-  getBulkTransferResponseModel: require('./bulkTransferResponse').getBulkTransferResponseModel,
+  getBulkTransferFulfilModel: require('./bulkTransferFulfil').getBulkTransferFulfilModel,
+  getBulkTransferResultModel: require('./bulkTransferResult').getBulkTransferResultModel,
   getIndividualTransferModel: require('./individualTransfer').getIndividualTransferModel,
+  getIndividualTransferFulfilModel: require('./individualTransferFulfil').getIndividualTransferFulfilModel,
   getIndividualTransferResultModel: require('./individualTransferResult').getIndividualTransferResultModel,
-  getBulkTransferResponseByMessageIdDestination: require('./facade').getBulkTransferResponseByMessageIdDestination
+  getBulkTransferResultByMessageIdDestination: require('./facade').getBulkTransferResultByMessageIdDestination
 }
