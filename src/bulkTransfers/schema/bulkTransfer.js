@@ -74,6 +74,9 @@ const getBulkTransferSchema = () => {
       try {
         this.individualTransfers.forEach(async transfer => {
           try {
+            if (!transfer._doc.extensionList.extension.length) {
+              delete transfer._doc.extensionList
+            }
             let individualTransfer = new IndividualTransferModel({
               _id_bulkTransfers: this._id,
               messageId: this.messageId,
@@ -84,6 +87,9 @@ const getBulkTransferSchema = () => {
             throw e
           }
         })
+        if (!this.extensionList.extension.length) {
+          delete this._doc.extensionList
+        }
       } catch (e) {
         throw (e)
       }

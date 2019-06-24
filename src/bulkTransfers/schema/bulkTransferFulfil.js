@@ -66,6 +66,9 @@ const getBulkTransferFulfilSchema = () => {
       try {
         this.individualTransferResults.forEach(async transfer => {
           try {
+            if (!transfer._doc.extensionList.extension.length) {
+              delete transfer._doc.extensionList
+            }
             let individualTransferFulfil = new IndividualTransferFulfilModel({
               _id_bulkTransferFulfils: this._id,
               messageId: this.messageId,
@@ -77,6 +80,9 @@ const getBulkTransferFulfilSchema = () => {
             throw e
           }
         })
+        if (!this.extensionList.extension.length) {
+          delete this._doc.extensionList
+        }
       } catch (e) {
         throw (e)
       }

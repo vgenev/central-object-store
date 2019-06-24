@@ -63,6 +63,15 @@ const getIndividualTransferResultSchema = () => {
       }))
     IndividualTransferResultSchema.index({ messageId: 1, destination: 1 })
   }
+  IndividualTransferResultSchema.pre('save', function () {
+    try {
+      if (!this.payload.extensionList.extension.length) {
+        delete this._doc.payload.extensionList
+      }
+    } catch (e) {
+      throw (e)
+    }
+  })
   return IndividualTransferResultSchema
 }
 

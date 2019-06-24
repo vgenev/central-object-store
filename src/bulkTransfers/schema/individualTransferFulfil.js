@@ -60,6 +60,15 @@ const getIndividualTransferFulfilSchema = () => {
         payload: { type: Object, required: true }
       }))
   }
+  IndividualTransferFulfilSchema.pre('save', function () {
+    try {
+      if (!this.payload.extensionList.extension.length) {
+        delete this._doc.payload.extensionList
+      }
+    } catch (e) {
+      throw (e)
+    }
+  })
   return IndividualTransferFulfilSchema
 }
 
