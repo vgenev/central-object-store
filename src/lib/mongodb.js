@@ -22,6 +22,7 @@
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
 
+ * Miguel de Barros <miguel.debarros@modusbox.com>
  * Valentin Genev <valentin.genev@modusbox.com>
  --------------
  ******/

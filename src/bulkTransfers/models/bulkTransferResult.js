@@ -31,17 +31,17 @@
 
 const mongoose = require('../../lib/mongodb').Mongoose
 
-const IndividualTransferResultSchema = require('../schema/individualTransferResult')
+const BulkTransferResultSchema = require('../schema/bulkTransferResult')
 
-let IndividualTransferResultModel = null
+let BulkTransferResultModel = null
 
-const getIndividualTransferResultModel = () => {
-  if (!IndividualTransferResultModel) {
-    IndividualTransferResultModel = mongoose.model('individualTransferResults', IndividualTransferResultSchema.getIndividualTransferResultSchema(), 'individualTransferResults')
+const getBulkTransferResultModel = () => {
+  if (!BulkTransferResultModel) {
+    BulkTransferResultModel = mongoose.model('bulkTransferResults', BulkTransferResultSchema.getBulkTransferResultSchema(), 'bulkTransferResults')
   }
-  return IndividualTransferResultModel
+  return BulkTransferResultModel
 }
 
 module.exports = {
-  getIndividualTransferResultModel
+  getBulkTransferResultModel
 }

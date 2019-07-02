@@ -23,45 +23,37 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * Georgi Georgiev <georgi.georgiev@modusbox.com>
- * Miguel de Barros <miguel.debarros@modusbox.com>
- * Valentin Genev <valentin.genev@modusbox.com>
  --------------
  ******/
 'use strict'
 
 const mongoose = require('../../lib/mongodb').Mongoose
 
-const Transfer = require('../schema/individualTransfer').Transfer
-const IndividualTransferModelFactory = require('../models/individualTransfer')
+const TransferFulfil = require('./individualTransferFulfil').TransferFulfil
+const IndividualTransferFulfilModelFactory = require('../models/individualTransferFulfil')
 
-let BulkTransferSchema = null
+let BulkTransferFulfilSchema = null
 
-const getBulkTransferSchema = () => {
-  if (!BulkTransferSchema) {
-    let IndividualTransferModel = IndividualTransferModelFactory.getIndividualTransferModel()
-    BulkTransferSchema = new mongoose.Schema({
+const getBulkTransferFulfilSchema = () => {
+  if (!BulkTransferFulfilSchema) {
+    let IndividualTransferFulfilModel = IndividualTransferFulfilModelFactory.getIndividualTransferFulfilModel()
+    BulkTransferFulfilSchema = new mongoose.Schema({
       messageId: { type: String, required: true },
       headers: {
         type: Object, required: true
       },
-      bulkQuoteId: {
-        type: String, required: true, unique: true
-      },
       bulkTransferId: {
-        type: String, required: true, index: true, unique: true
+        type: String, required: true, index: true
       },
-      payerFsp: {
+      bulkTransferState: {
         type: String, required: true
       },
-      payeeFsp: {
-        type: String, required: true
+      completedTimestamp: {
+        type: Date, required: true
       },
-      expiration: {
-        type: Date
-      },
-      individualTransfers: [new mongoose.Schema(Object.assign({
+      individualTransferResults: [new mongoose.Schema(Object.assign({
         _id: false
-      }, Transfer))],
+      }, TransferFulfil))],
       extensionList: {
         extension: [{
           _id: false,
@@ -70,19 +62,20 @@ const getBulkTransferSchema = () => {
         }]
       }
     })
-    BulkTransferSchema.pre('save', function () {
+    BulkTransferFulfilSchema.pre('save', function () {
       try {
-        this.individualTransfers.forEach(async transfer => {
+        this.individualTransferResults.forEach(async transfer => {
           try {
             if (!transfer._doc.extensionList.extension.length) {
               delete transfer._doc.extensionList
             }
-            let individualTransfer = new IndividualTransferModel({
-              _id_bulkTransfers: this._id,
+            let individualTransferFulfil = new IndividualTransferFulfilModel({
+              _id_bulkTransferFulfils: this._id,
               messageId: this.messageId,
+              bulkTransferId: this.bulkTransferId,
               payload: transfer._doc
             })
-            await individualTransfer.save()
+            await individualTransferFulfil.save()
           } catch (e) {
             throw e
           }
@@ -95,9 +88,9 @@ const getBulkTransferSchema = () => {
       }
     })
   }
-  return BulkTransferSchema
+  return BulkTransferFulfilSchema
 }
 
 module.exports = {
-  getBulkTransferSchema
+  getBulkTransferFulfilSchema
 }

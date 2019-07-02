@@ -23,25 +23,56 @@
  - Name Surname <name.surname@gatesfoundation.com>
 
  * Georgi Georgiev <georgi.georgiev@modusbox.com>
- * Miguel de Barros <miguel.debarros@modusbox.com>
- * Valentin Genev <valentin.genev@modusbox.com>
  --------------
  ******/
 'use strict'
 
 const mongoose = require('../../lib/mongodb').Mongoose
 
-const IndividualTransferResultSchema = require('../schema/individualTransferResult')
-
-let IndividualTransferResultModel = null
-
-const getIndividualTransferResultModel = () => {
-  if (!IndividualTransferResultModel) {
-    IndividualTransferResultModel = mongoose.model('individualTransferResults', IndividualTransferResultSchema.getIndividualTransferResultSchema(), 'individualTransferResults')
+const TransferFulfil = {
+  transferId: {
+    type: String, required: true
+  },
+  fulfilment: {
+    type: String
+  },
+  errorInformation: {
+    errorCode: String,
+    errorDescription: String
+  },
+  extensionList: {
+    extension: [{
+      _id: false,
+      key: String,
+      value: String
+    }]
   }
-  return IndividualTransferResultModel
+}
+
+let IndividualTransferFulfilSchema = null
+
+const getIndividualTransferFulfilSchema = () => {
+  if (!IndividualTransferFulfilSchema) {
+    IndividualTransferFulfilSchema = new mongoose.Schema(Object.assign({}, { payload: TransferFulfil },
+      { _id_bulkTransferFulfils: { type: mongoose.Schema.Types.ObjectId, ref: 'bulkTransferFulfils' },
+        messageId: { type: String, required: true, index: true },
+        bulkTransferId: { type: String, required: true },
+        payload: { type: Object, required: true }
+      }))
+  }
+  IndividualTransferFulfilSchema.pre('save', function () {
+    try {
+      if (!this.payload.extensionList.extension.length) {
+        delete this._doc.payload.extensionList
+      }
+    } catch (e) {
+      throw (e)
+    }
+  })
+  return IndividualTransferFulfilSchema
 }
 
 module.exports = {
-  getIndividualTransferResultModel
+  TransferFulfil,
+  getIndividualTransferFulfilSchema
 }
