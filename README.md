@@ -6,4 +6,4 @@
 [![NPM Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/@mojaloop/central-object-store.svg?style=flat)](https://www.npmjs.com/package/@mojaloop/central-object-store)
 [![CircleCI](https://circleci.com/gh/mojaloop/central-object-store.svg?style=svg)](https://circleci.com/gh/mojaloop/central-object-store)
 
-**EXPERIMENTAL** Common object persistence store lib
+Common object persistence store lib
