@@ -1,6 +1,6 @@
 {
     "name": "@mojaloop/central-object-store",
-    "version": "7.1.0",
+    "version": "8.2.0",
     "description": "Mojaloop library for common object store",
     "license": "Apache-2.0",
     "author": "ModusBox",
@@ -17,12 +17,12 @@
         "registry": "https://registry.npmjs.org"
     },
     "dependencies": {
-        "@mojaloop/central-services-shared": "5.2.0",
-        "mongoose": "5.6.0"
+        "@mojaloop/central-services-logger": "8.1.2",
+        "mongoose": "5.7.4"
     },
     "devDependencies": {
-        "eslint": "5.16.0",
-        "tape": "4.10.2",
+        "eslint": "6.5.1",
+        "tape": "4.11.0",
         "istanbul": "0.4.5"
     },
     "main": "./src/index.js"

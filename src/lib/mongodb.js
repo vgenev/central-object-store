@@ -29,7 +29,7 @@
 'use strict'
 
 const Mongoose = require('mongoose')
-const Logger = require('@mojaloop/central-services-shared').Logger
+const Logger = require('@mojaloop/central-services-logger')
 
 Mongoose.connection.on('error', (err) => { Logger.info('MongoDB connection error ', err) })
 Mongoose.connection.once('open', function callback () {

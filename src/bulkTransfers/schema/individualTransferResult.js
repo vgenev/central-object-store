@@ -22,8 +22,9 @@
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
 
- * Georgi Georgiev <georgi.georgiev@modusbox.com>
- * Miguel de Barros <miguel.debarros@modusbox.com>
+ * ModusBox
+ - Georgi Georgiev <georgi.georgiev@modusbox.com>
+ - Miguel de Barros <miguel.debarros@modusbox.com>
  --------------
  ******/
 'use strict'
@@ -52,6 +53,9 @@ const TransferResult = {
 
 let IndividualTransferResultSchema = null
 
+/**
+ * getIndividualTransferResultSchema is not currently being used. Please, remove this comment if utilized.
+ */
 const getIndividualTransferResultSchema = () => {
   if (!IndividualTransferResultSchema) {
     IndividualTransferResultSchema = new mongoose.Schema(Object.assign({}, { payload: TransferResult },

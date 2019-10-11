@@ -22,7 +22,8 @@
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
 
- * Georgi Georgiev <georgi.georgiev@modusbox.com>
+ * ModusBox
+ - Georgi Georgiev <georgi.georgiev@modusbox.com>
  --------------
  ******/
 'use strict'
@@ -51,6 +52,9 @@ const TransferFulfil = {
 
 let IndividualTransferFulfilSchema = null
 
+/**
+ * getIndividualTransferFulfilSchema is not currently being used. Please, remove this comment if utilized.
+ */
 const getIndividualTransferFulfilSchema = () => {
   if (!IndividualTransferFulfilSchema) {
     IndividualTransferFulfilSchema = new mongoose.Schema(Object.assign({}, { payload: TransferFulfil },

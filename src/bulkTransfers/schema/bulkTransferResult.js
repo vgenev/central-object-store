@@ -22,8 +22,9 @@
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
 
- * Georgi Georgiev <georgi.georgiev@modusbox.com>
- * Miguel de Barros <miguel.debarros@modusbox.com>
+ * ModusBox
+ - Georgi Georgiev <georgi.georgiev@modusbox.com>
+ - Miguel de Barros <miguel.debarros@modusbox.com>
  --------------
  ******/
 'use strict'
@@ -31,13 +32,15 @@
 const mongoose = require('../../lib/mongodb').Mongoose
 
 const TransferResult = require('./individualTransferResult').TransferResult
-const IndividualTransferResultModelFactory = require('../models/individualTransferResult')
+// Disabled writing to ML Object Store (individualTransferResults) as it is not used:
+// const IndividualTransferResultModelFactory = require('../models/individualTransferResult')
 
 let BulkTransferResultSchema = null
 
 const getBulkTransferResultSchema = () => {
   if (!BulkTransferResultSchema) {
-    let IndividualTransferResultModel = IndividualTransferResultModelFactory.getIndividualTransferResultModel()
+    // Disabled writing to ML Object Store (individualTransferResults) as it is not used:
+    // let IndividualTransferResultModel = IndividualTransferResultModelFactory.getIndividualTransferResultModel()
     BulkTransferResultSchema = new mongoose.Schema({
       messageId: { type: String, required: true },
       destination: { type: String, required: true },
@@ -65,32 +68,35 @@ const getBulkTransferResultSchema = () => {
       }
     })
     BulkTransferResultSchema.index({ messageId: 1, destination: 1 }, { unique: true })
-    BulkTransferResultSchema.pre('save', function () {
-      try {
-        this.individualTransferResults.forEach(async transfer => {
-          try {
-            if (!transfer._doc.extensionList.extension.length) {
-              delete transfer._doc.extensionList
-            }
-            let individualTransferResult = new IndividualTransferResultModel({
-              _id_bulkTransferResults: this._id,
-              messageId: this.messageId,
-              destination: this.destination,
-              bulkTransferId: this.bulkTransferId,
-              payload: transfer._doc
-            })
-            await individualTransferResult.save()
-          } catch (e) {
-            throw e
-          }
-        })
-        if (!this.extensionList.extension.length) {
-          delete this._doc.extensionList
-        }
-      } catch (e) {
-        throw (e)
-      }
-    })
+    /**
+     * Disabled writing to ML Object Store (individualTransferResults) as it is not used:
+     */
+    // BulkTransferResultSchema.pre('save', function () {
+    //   try {
+    //     this.individualTransferResults.forEach(async transfer => {
+    //       try {
+    //         if (!transfer._doc.extensionList.extension.length) {
+    //           delete transfer._doc.extensionList
+    //         }
+    //         let individualTransferResult = new IndividualTransferResultModel({
+    //           _id_bulkTransferResults: this._id,
+    //           messageId: this.messageId,
+    //           destination: this.destination,
+    //           bulkTransferId: this.bulkTransferId,
+    //           payload: transfer._doc
+    //         })
+    //         await individualTransferResult.save()
+    //       } catch (e) {
+    //         throw e
+    //       }
+    //     })
+    //     if (!this.extensionList.extension.length) {
+    //       delete this._doc.extensionList
+    //     }
+    //   } catch (e) {
+    //     throw (e)
+    //   }
+    // })
   }
   return BulkTransferResultSchema
 }

@@ -22,7 +22,8 @@
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
 
- * Georgi Georgiev <georgi.georgiev@modusbox.com>
+ * ModusBox
+ - Georgi Georgiev <georgi.georgiev@modusbox.com>
  --------------
  ******/
 'use strict'
@@ -34,6 +35,9 @@ const IndividualTransferFulfilModelFactory = require('../models/individualTransf
 
 let BulkTransferFulfilSchema = null
 
+/**
+ * getBulkTransferFulfilSchema is not currently being used. Please, remove this comment if utilized.
+ */
 const getBulkTransferFulfilSchema = () => {
   if (!BulkTransferFulfilSchema) {
     let IndividualTransferFulfilModel = IndividualTransferFulfilModelFactory.getIndividualTransferFulfilModel()

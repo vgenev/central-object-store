@@ -22,9 +22,10 @@
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
 
- * Georgi Georgiev <georgi.georgiev@modusbox.com>
- * Miguel de Barros <miguel.debarros@modusbox.com>
- * Valentin Genev <valentin.genev@modusbox.com>
+ * ModusBox
+ - Georgi Georgiev <georgi.georgiev@modusbox.com>
+ - Miguel de Barros <miguel.debarros@modusbox.com>
+ - Valentin Genev <valentin.genev@modusbox.com>
  --------------
  ******/
 'use strict'
@@ -36,6 +37,9 @@ const IndividualTransferModelFactory = require('../models/individualTransfer')
 
 let BulkTransferSchema = null
 
+/**
+ * getBulkTransferSchema is not currently being used. Please, remove this comment if utilized.
+ */
 const getBulkTransferSchema = () => {
   if (!BulkTransferSchema) {
     let IndividualTransferModel = IndividualTransferModelFactory.getIndividualTransferModel()

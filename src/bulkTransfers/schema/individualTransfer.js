@@ -22,9 +22,10 @@
  * Gates Foundation
  - Name Surname <name.surname@gatesfoundation.com>
 
- * Georgi Georgiev <georgi.georgiev@modusbox.com>
- * Miguel de Barros <miguel.debarros@modusbox.com>
- * Valentin Genev <valentin.genev@modusbox.com>
+ * ModusBox
+ - Georgi Georgiev <georgi.georgiev@modusbox.com>
+ - Miguel de Barros <miguel.debarros@modusbox.com>
+ - Valentin Genev <valentin.genev@modusbox.com>
  --------------
  ******/
 'use strict'
@@ -68,7 +69,7 @@ const getIndividualTransferSchema = () => {
   if (!IndividualTransferSchema) {
     IndividualTransferSchema = new mongoose.Schema(Object.assign({}, { payload: Transfer },
       { _id_bulkTransfers: { type: mongoose.Schema.Types.ObjectId, ref: 'bulkTransfers' },
-        messageId: { type: String, required: true },
+        messageId: { type: String, required: true, index: true },
         payload: { type: Object, required: true }
       }))
   }
