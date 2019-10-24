@@ -1,29 +1,42 @@
 {
-    "name": "@mojaloop/central-object-store",
-    "version": "8.2.0",
-    "description": "Mojaloop library for common object store",
-    "license": "Apache-2.0",
-    "author": "ModusBox",
-    "contributors": [
-        "Georgi Georgiev <georgi.georgiev@modusbox.com>",
-        "Miguel de Barros <miguel.debarros@modusbox.com>",
-        "Valentin Genev <valenting.genev@modusbox.com>"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:mojaloop/central-object-store.git"
-    },
-    "publishConfig": {
-        "registry": "https://registry.npmjs.org"
-    },
-    "dependencies": {
-        "@mojaloop/central-services-logger": "8.1.2",
-        "mongoose": "5.7.4"
-    },
-    "devDependencies": {
-        "eslint": "6.5.1",
-        "tape": "4.11.0",
-        "istanbul": "0.4.5"
-    },
-    "main": "./src/index.js"
+  "name": "@mojaloop/central-object-store",
+  "version": "8.3.0",
+  "description": "Mojaloop library for common object store",
+  "main": "src/index.js",
+  "pre-commit": [
+    "standard",
+    "dep:check"
+  ],
+  "scripts": {
+    "audit:resolve": "SHELL=sh resolve-audit",
+    "audit:check": "SHELL=sh check-audit",
+    "dep:check": "npx ncu -e 2",
+    "dep:update": "npx ncu -u"
+  },
+  "license": "Apache-2.0",
+  "author": "ModusBox",
+  "contributors": [
+    "Georgi Georgiev <georgi.georgiev@modusbox.com>",
+    "Miguel de Barros <miguel.debarros@modusbox.com>",
+    "Valentin Genev <valenting.genev@modusbox.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mojaloop/central-object-store.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "dependencies": {
+    "@mojaloop/central-services-logger": "8.1.2",
+    "mongoose": "5.7.6"
+  },
+  "devDependencies": {
+    "eslint": "6.5.1",
+    "istanbul": "0.4.5",
+    "npm-audit-resolver": "2.1.0",
+    "npm-check-updates": "3.1.25",
+    "standard": "14.3.1",
+    "tape": "4.11.0"
+  }
 }
