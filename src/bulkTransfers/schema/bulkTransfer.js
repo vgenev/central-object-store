@@ -42,7 +42,7 @@ let BulkTransferSchema = null
  */
 const getBulkTransferSchema = () => {
   if (!BulkTransferSchema) {
-    let IndividualTransferModel = IndividualTransferModelFactory.getIndividualTransferModel()
+    const IndividualTransferModel = IndividualTransferModelFactory.getIndividualTransferModel()
     BulkTransferSchema = new mongoose.Schema({
       messageId: { type: String, required: true },
       headers: {
@@ -75,27 +75,19 @@ const getBulkTransferSchema = () => {
       }
     })
     BulkTransferSchema.pre('save', function () {
-      try {
-        this.individualTransfers.forEach(async transfer => {
-          try {
-            if (!transfer._doc.extensionList.extension.length) {
-              delete transfer._doc.extensionList
-            }
-            let individualTransfer = new IndividualTransferModel({
-              _id_bulkTransfers: this._id,
-              messageId: this.messageId,
-              payload: transfer._doc
-            })
-            await individualTransfer.save()
-          } catch (e) {
-            throw e
-          }
-        })
-        if (!this.extensionList.extension.length) {
-          delete this._doc.extensionList
+      this.individualTransfers.forEach(async transfer => {
+        if (!transfer._doc.extensionList.extension.length) {
+          delete transfer._doc.extensionList
         }
-      } catch (e) {
-        throw (e)
+        const individualTransfer = new IndividualTransferModel({
+          _id_bulkTransfers: this._id,
+          messageId: this.messageId,
+          payload: transfer._doc
+        })
+        await individualTransfer.save()
+      })
+      if (!this.extensionList.extension.length) {
+        delete this._doc.extensionList
       }
     })
   }

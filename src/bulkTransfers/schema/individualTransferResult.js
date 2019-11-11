@@ -35,6 +35,20 @@ const TransferResult = {
   transferId: {
     type: String, required: true
   },
+  transferAmount: {
+    currency: {
+      type: String
+    },
+    amount: {
+      type: String
+    }
+  },
+  ilpPacket: {
+    type: String
+  },
+  condition: {
+    type: String
+  },
   fulfilment: {
     type: String
   },
@@ -59,7 +73,8 @@ let IndividualTransferResultSchema = null
 const getIndividualTransferResultSchema = () => {
   if (!IndividualTransferResultSchema) {
     IndividualTransferResultSchema = new mongoose.Schema(Object.assign({}, { payload: TransferResult },
-      { _id_bulkTransferResults: { type: mongoose.Schema.Types.ObjectId, ref: 'bulkTransferResults' },
+      {
+        _id_bulkTransferResults: { type: mongoose.Schema.Types.ObjectId, ref: 'bulkTransferResults' },
         messageId: { type: String, required: true },
         destination: { type: String, required: true },
         bulkTransferId: { type: String, required: true },
@@ -68,12 +83,8 @@ const getIndividualTransferResultSchema = () => {
     IndividualTransferResultSchema.index({ messageId: 1, destination: 1 })
   }
   IndividualTransferResultSchema.pre('save', function () {
-    try {
-      if (!this.payload.extensionList.extension.length) {
-        delete this._doc.payload.extensionList
-      }
-    } catch (e) {
-      throw (e)
+    if (!this.payload.extensionList.extension.length) {
+      delete this._doc.payload.extensionList
     }
   })
   return IndividualTransferResultSchema

@@ -42,7 +42,7 @@ const Transfer = {
       required: true
     },
     amount: {
-      type: Number,
+      type: String,
       required: true
     }
   },
@@ -68,18 +68,15 @@ let IndividualTransferSchema = null
 const getIndividualTransferSchema = () => {
   if (!IndividualTransferSchema) {
     IndividualTransferSchema = new mongoose.Schema(Object.assign({}, { payload: Transfer },
-      { _id_bulkTransfers: { type: mongoose.Schema.Types.ObjectId, ref: 'bulkTransfers' },
+      {
+        _id_bulkTransfers: { type: mongoose.Schema.Types.ObjectId, ref: 'bulkTransfers' },
         messageId: { type: String, required: true, index: true },
         payload: { type: Object, required: true }
       }))
   }
   IndividualTransferSchema.pre('save', function () {
-    try {
-      if (!this.payload.extensionList.extension.length) {
-        delete this._doc.payload.extensionList
-      }
-    } catch (e) {
-      throw (e)
+    if (!this.payload.extensionList.extension.length) {
+      delete this._doc.payload.extensionList
     }
   })
   return IndividualTransferSchema

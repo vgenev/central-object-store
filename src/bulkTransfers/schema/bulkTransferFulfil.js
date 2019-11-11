@@ -40,7 +40,7 @@ let BulkTransferFulfilSchema = null
  */
 const getBulkTransferFulfilSchema = () => {
   if (!BulkTransferFulfilSchema) {
-    let IndividualTransferFulfilModel = IndividualTransferFulfilModelFactory.getIndividualTransferFulfilModel()
+    const IndividualTransferFulfilModel = IndividualTransferFulfilModelFactory.getIndividualTransferFulfilModel()
     BulkTransferFulfilSchema = new mongoose.Schema({
       messageId: { type: String, required: true },
       headers: {
@@ -67,28 +67,20 @@ const getBulkTransferFulfilSchema = () => {
       }
     })
     BulkTransferFulfilSchema.pre('save', function () {
-      try {
-        this.individualTransferResults.forEach(async transfer => {
-          try {
-            if (!transfer._doc.extensionList.extension.length) {
-              delete transfer._doc.extensionList
-            }
-            let individualTransferFulfil = new IndividualTransferFulfilModel({
-              _id_bulkTransferFulfils: this._id,
-              messageId: this.messageId,
-              bulkTransferId: this.bulkTransferId,
-              payload: transfer._doc
-            })
-            await individualTransferFulfil.save()
-          } catch (e) {
-            throw e
-          }
-        })
-        if (!this.extensionList.extension.length) {
-          delete this._doc.extensionList
+      this.individualTransferResults.forEach(async transfer => {
+        if (!transfer._doc.extensionList.extension.length) {
+          delete transfer._doc.extensionList
         }
-      } catch (e) {
-        throw (e)
+        const individualTransferFulfil = new IndividualTransferFulfilModel({
+          _id_bulkTransferFulfils: this._id,
+          messageId: this.messageId,
+          bulkTransferId: this.bulkTransferId,
+          payload: transfer._doc
+        })
+        await individualTransferFulfil.save()
+      })
+      if (!this.extensionList.extension.length) {
+        delete this._doc.extensionList
       }
     })
   }

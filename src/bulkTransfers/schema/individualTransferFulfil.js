@@ -58,19 +58,16 @@ let IndividualTransferFulfilSchema = null
 const getIndividualTransferFulfilSchema = () => {
   if (!IndividualTransferFulfilSchema) {
     IndividualTransferFulfilSchema = new mongoose.Schema(Object.assign({}, { payload: TransferFulfil },
-      { _id_bulkTransferFulfils: { type: mongoose.Schema.Types.ObjectId, ref: 'bulkTransferFulfils' },
+      {
+        _id_bulkTransferFulfils: { type: mongoose.Schema.Types.ObjectId, ref: 'bulkTransferFulfils' },
         messageId: { type: String, required: true, index: true },
         bulkTransferId: { type: String, required: true },
         payload: { type: Object, required: true }
       }))
   }
   IndividualTransferFulfilSchema.pre('save', function () {
-    try {
-      if (!this.payload.extensionList.extension.length) {
-        delete this._doc.payload.extensionList
-      }
-    } catch (e) {
-      throw (e)
+    if (!this.payload.extensionList.extension.length) {
+      delete this._doc.payload.extensionList
     }
   })
   return IndividualTransferFulfilSchema
