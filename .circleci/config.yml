@@ -6,7 +6,7 @@ defaults_working_directory: &defaults_working_directory
 
 defaults_docker_node: &defaults_docker_node
   docker:
-    - image: mhart/alpine-node:10.15.1
+    - image: mhart/alpine-node:12.16.0
 
 defaults_Dependencies: &defaults_Dependencies |
     apk --no-cache add git
@@ -162,12 +162,12 @@ jobs:
     <<: *defaults_working_directory
     <<: *defaults_docker_node
     steps:
+      - checkout
       - run:
           name: Install general dependencies
           command: *defaults_Dependencies
       - run:
           <<: *defaults_license_scanner
-      - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
