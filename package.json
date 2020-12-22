@@ -1,6 +1,6 @@
 {
   "name": "@mojaloop/central-object-store",
-  "version": "11.0.1-snapshot",
+  "version": "11.0.2-snapshot",
   "description": "Mojaloop library for common object store",
   "main": "src/index.js",
   "pre-commit": [
@@ -29,13 +29,13 @@
   },
   "dependencies": {
     "@mojaloop/central-services-logger": "10.6.0",
-    "mongoose": "5.10.7"
+    "mongoose": "5.11.8"
   },
   "devDependencies": {
-    "eslint": "7.10.0",
+    "eslint": "7.16.0",
     "nyc": "15.1.0",
     "npm-audit-resolver": "2.2.1",
-    "npm-check-updates": "9.0.3",
-    "standard": "14.3.4"
+    "npm-check-updates": "10.2.5",
+    "standard": "16.0.3"
   }
 }
