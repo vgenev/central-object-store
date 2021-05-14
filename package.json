@@ -1,6 +1,6 @@
 {
   "name": "@mojaloop/central-object-store",
-  "version": "11.0.2-snapshot",
+  "version": "11.1.0-snapshot",
   "description": "Mojaloop library for common object store",
   "main": "src/index.js",
   "pre-commit": [
